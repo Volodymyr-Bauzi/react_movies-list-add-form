@@ -75,8 +75,8 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
     });
   }
 
-  const handleAdd = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleAdd = (event: React.FormEvent) => {
+    event.preventDefault();
     const { title, description, imgUrl, imdbUrl, imdbId } = movie;
 
     if (isValid) {
@@ -95,7 +95,7 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
   };
 
   return (
-    <form className="NewMovie" key={count}>
+    <form className="NewMovie" key={count} onSubmit={handleAdd}>
       <h2 className="title">Add a movie</h2>
 
       {labelNames.map(label => {
@@ -104,10 +104,10 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
         return (
           <TextField
             key={label}
-            name={getNamesFromLabel(label)}
+            name={fieldName}
             label={label}
             value={getMovieInputName(fieldName)}
-            onChange={e => setMovieFromInputName(fieldName, e)}
+            onChange={value => setMovieFromInputName(fieldName, value)}
             required={label !== 'Description'}
           />
         );
@@ -119,7 +119,6 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
             type="submit"
             data-cy="submit-button"
             className="button is-link"
-            onClick={handleAdd}
             disabled={isValid}
           >
             Add
