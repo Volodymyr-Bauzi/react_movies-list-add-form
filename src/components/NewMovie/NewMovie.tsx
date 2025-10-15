@@ -24,6 +24,12 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
     'Imdb ID',
   ];
 
+  const isValid =
+    movie.title.trim() === '' &&
+    movie.imgUrl.trim() === '' &&
+    movie.imdbUrl.trim() === '' &&
+    movie.imdbId.trim() === '';
+
   const getNamesFromLabel = (label: string): string => {
     const wordsArr = label.split(' ');
     let secondWord;
@@ -73,7 +79,7 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
     e.preventDefault();
     const { title, description, imgUrl, imdbUrl, imdbId } = movie;
 
-    if (title === '' || imgUrl === '' || imdbUrl === '' || imdbId === '') {
+    if (!isValid) {
       return;
     }
 
@@ -114,7 +120,7 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
             data-cy="submit-button"
             className="button is-link"
             onClick={handleAdd}
-            disabled={movie.title === ''}
+            disabled={!isValid}
           >
             Add
           </button>
